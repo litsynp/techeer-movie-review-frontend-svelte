@@ -1,38 +1,23 @@
-# create-svelte
+# 테커 Good Night Hackathon 2nd - 영화 리뷰 앱
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+디자인은 전혀 신경쓰지 않고, 기능만 구현하는 것을 목표로 합니다.
 
-## Creating a project
+## Supported Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+- [x] 영화 목록 조회
+- [x] 영화 상세 조회
+- [x] 영화 수정
+- [x] 영화 삭제
+- [ ] 영화 리뷰 조회
+- [ ] 영화 리뷰 작성
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## How to run
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+[Backend repository](https://github.com/0BVer/movieReview)를 실행합니다.
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
+이후 다음 명령어를 실행합니다.
 
 ```bash
-npm run build
+$ npm install
+$ npm run dev
 ```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
