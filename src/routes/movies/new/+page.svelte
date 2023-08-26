@@ -1,29 +1,5 @@
 <script lang="ts">
-	import type { Genre } from '$lib/movie';
-
-	let GENRES_MAP: Record<Genre, string> = {
-		action: 'Action',
-		adventure: 'Adventure',
-		comedy: 'Comedy',
-		drama: 'Drama',
-		fantasy: 'Fantasy',
-		horror: 'Horror',
-		mystery: 'Mystery',
-		thriller: 'Thriller',
-		western: 'Western'
-	};
-
-	function isGenre(genre: string): genre is Genre {
-		return genre in GENRES_MAP;
-	}
-
-	function mapGenre(genre: string): string {
-		if (isGenre(genre)) {
-			return GENRES_MAP[genre];
-		}
-
-		return 'Unknown';
-	}
+	import { GENRES_MAP, mapGenre } from '$lib/movie';
 
 	const onSubmit = async (event: Event) => {
 		const form = event.target as HTMLFormElement;
