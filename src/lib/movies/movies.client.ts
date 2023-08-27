@@ -1,17 +1,7 @@
 import { fetchJson } from '$lib/common/fetcher';
 import { API_BASE_URL } from '$lib/config';
 import type { Genre } from './movies.model';
-
-interface MovieView {
-	id: number;
-	title: string;
-	genre: Genre;
-	isShowing: boolean;
-	releasedAt: string;
-	endAt: string;
-	createdAt: string;
-	updatedAt: string;
-}
+import type { MovieView } from './movies.view';
 
 async function createMovie({
 	genre,

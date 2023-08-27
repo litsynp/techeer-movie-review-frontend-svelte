@@ -41,8 +41,8 @@ export interface Movie {
 	title: string;
 	genre: Genre;
 	isShowing: boolean;
-	releasedAt: string;
-	endAt: string;
-	createdAt: string;
-	updatedAt: string;
+	releasedAt: Date;
+	endAt: Date;
+	createdAt: Date;
+	updatedAt: Date;
 }

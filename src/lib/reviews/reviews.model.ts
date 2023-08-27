@@ -1,8 +1,8 @@
 export interface Review {
-	comment: string;
-	createdAt: string;
 	id: number;
 	movieId: number;
+	comment: string;
 	score: number;
-	updatedAt: string;
+	createdAt: Date;
+	updatedAt: Date;
 }

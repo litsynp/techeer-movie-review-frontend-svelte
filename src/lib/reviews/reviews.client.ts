@@ -1,14 +1,6 @@
 import { fetchJson } from '$lib/common/fetcher';
 import { API_BASE_URL } from '$lib/config';
-
-interface ReviewView {
-	comment: string;
-	createdAt: string;
-	id: number;
-	movieId: number;
-	score: number;
-	updatedAt: string;
-}
+import type { ReviewView } from './reviews.view';
 
 async function createReview({
 	movieId,

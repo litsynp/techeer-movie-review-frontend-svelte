@@ -20,11 +20,11 @@
 	</span>
 
 	<span>
-		Released At: {toDateString(new Date(movie.releasedAt))}
+		Released At: {toDateString(movie.releasedAt)}
 	</span>
 
 	<span>
-		End At: {toDateString(new Date(movie.endAt))}
+		End At: {toDateString(movie.endAt)}
 	</span>
 
 	<button type="button" class="navigate-update-review-button" on:click={onNavigateUpdateMovie}>

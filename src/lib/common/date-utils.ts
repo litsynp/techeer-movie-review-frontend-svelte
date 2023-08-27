@@ -1,4 +1,4 @@
-export function toReadableDate(date: string): string {
+export function toReadableDate(date: Date): string {
 	return new Date(date).toLocaleDateString();
 }
 

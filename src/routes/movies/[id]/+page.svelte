@@ -1,12 +1,14 @@
 <script lang="ts">
 	import { movieClient } from '$lib/movies/movies.client';
 	import type { Movie } from '$lib/movies/movies.model';
+	import { toMovie } from '$lib/movies/movies.view';
 	import { reviewClient } from '$lib/reviews/reviews.client';
+	import type { Review } from '$lib/reviews/reviews.model';
+	import { toReview } from '$lib/reviews/reviews.view';
 	import { onMount } from 'svelte';
 	import MovieItem from '../../../components/movies/movie-item.svelte';
 	import CreateReviewForm from '../../../components/reviews/create-review-form.svelte';
 	import ReviewList from '../../../components/reviews/review-list.svelte';
-	import type { Review } from '../../../components/reviews/reviews.model';
 
 	export let data: { id: number };
 
@@ -16,8 +18,8 @@
 	let reviews: Review[] = [];
 
 	onMount(async () => {
-		movie = await movieClient.findMovieById(data.id);
-		reviews = await reviewClient.findReviews({ movieId: data.id });
+		movie = await movieClient.findMovieById(data.id).then(toMovie);
+		reviews = (await reviewClient.findReviews({ movieId: data.id })).map(toReview);
 	});
 
 	const onSubmitCreateReview = async (event: Event) => {

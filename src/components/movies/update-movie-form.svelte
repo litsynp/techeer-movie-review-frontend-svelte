@@ -55,17 +55,12 @@
 
 	<span>
 		<label for="releasedAt">Released At:</label>
-		<input
-			type="date"
-			name="releasedAt"
-			value={toDateString(new Date(movie.releasedAt))}
-			required
-		/>
+		<input type="date" name="releasedAt" value={toDateString(movie.releasedAt)} required />
 	</span>
 
 	<span>
 		<label for="endAt">End At:</label>
-		<input type="date" name="endAt" value={toDateString(new Date(movie.endAt))} required />
+		<input type="date" name="endAt" value={toDateString(movie.endAt)} required />
 	</span>
 
 	<span>
