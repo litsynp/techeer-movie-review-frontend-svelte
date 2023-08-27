@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { movieClient } from '$lib/api/movie.client';
-	import type { Movie } from '$lib/movie';
+	import { movieClient } from '$lib/movies/movies.client';
+	import type { Movie } from '$lib/movies/movies.model';
 	import { onMount } from 'svelte';
-	import UpdateMovieForm from '../../../../components/movie/update-movie-form.svelte';
+	import UpdateMovieForm from '../../../../components/movies/update-movie-form.svelte';
 
 	export let data: { id: number };
 

@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { movieClient } from '$lib/api/movie.client';
-	import { reviewClient } from '$lib/api/review.client';
-	import type { Movie } from '$lib/movie';
-	import type { Review } from '$lib/review';
+	import { movieClient } from '$lib/movies/movies.client';
+	import type { Movie } from '$lib/movies/movies.model';
+	import { reviewClient } from '$lib/reviews/reviews.client';
 	import { onMount } from 'svelte';
-	import MovieItem from '../../../components/movie/movie-item.svelte';
-	import CreateReviewForm from '../../../components/review/create-review-form.svelte';
-	import ReviewList from '../../../components/review/review-list.svelte';
+	import MovieItem from '../../../components/movies/movie-item.svelte';
+	import CreateReviewForm from '../../../components/reviews/create-review-form.svelte';
+	import ReviewList from '../../../components/reviews/review-list.svelte';
+	import type { Review } from '../../../components/reviews/reviews.model';
 
 	export let data: { id: number };
 

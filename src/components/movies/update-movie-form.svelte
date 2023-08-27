@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { movieClient } from '$lib/api/movie.client';
 	import { toDateString } from '$lib/common/date-utils';
-	import { GENRES_MAP, mapGenre, type Genre, type Movie } from '$lib/movie';
+	import { movieClient } from '$lib/movies/movies.client';
+	import { GENRES_MAP, mapGenre, type Genre, type Movie } from '$lib/movies/movies.model';
 
 	export let movie: Movie;
 

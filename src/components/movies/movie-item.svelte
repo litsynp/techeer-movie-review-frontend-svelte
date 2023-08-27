@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { toDateString } from '$lib/common/date-utils';
-	import { mapGenre, type Movie } from '$lib/movie';
+	import { mapGenre, type Movie } from '$lib/movies/movies.model';
 
 	export let movie: Movie;
 

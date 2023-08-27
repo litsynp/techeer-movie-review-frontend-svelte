@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { toReadableDate } from '$lib/common/date-utils';
-	import type { Review } from '$lib/review';
+	import type { Review } from './reviews.model';
 
 	export let review: Review;
 

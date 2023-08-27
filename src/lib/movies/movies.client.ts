@@ -1,6 +1,6 @@
-import { fetchJson } from '$lib/api/fetcher';
+import { fetchJson } from '$lib/common/fetcher';
 import { API_BASE_URL } from '$lib/config';
-import type { Genre } from '$lib/movie';
+import type { Genre } from './movies.model';
 
 interface MovieView {
 	id: number;

@@ -1,5 +1,5 @@
+import { fetchJson } from '$lib/common/fetcher';
 import { API_BASE_URL } from '$lib/config';
-import { fetchJson } from './fetcher';
 
 interface ReviewView {
 	comment: string;

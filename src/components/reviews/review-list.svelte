@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Review } from '$lib/review';
+	import type { Review } from './reviews.model';
 	import ReviewItem from './review-item.svelte';
 
 	export let reviews: Review[] = [];
