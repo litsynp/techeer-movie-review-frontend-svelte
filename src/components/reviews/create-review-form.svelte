@@ -15,7 +15,7 @@
 
 	<span>
 		<label for="score">Score:</label>
-		<input type="number" name="score" placeholder="Score" required />
+		<input type="number" name="score" placeholder="Score" min="0" max="5" step="1" required />
 	</span>
 
 	<button type="submit" class="create-review-form-submit">Submit</button>
