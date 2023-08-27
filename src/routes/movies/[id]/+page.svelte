@@ -141,10 +141,13 @@
 		</span>
 
 		<span>
-			<button type="submit" class="create-movie-form-submit">Submit</button>
-			<button class="create-movie-delete-button" on:click={onDeleteMovie}>Delete</button>
+			<button type="submit" class="create-movie-form-submit" on:click={onSubmitUpdateMovie}>
+				Update
+			</button>
 		</span>
 	</form>
+
+	<button class="create-movie-delete-button" on:click={onDeleteMovie}>Delete</button>
 
 	<h3>Reviews</h3>
 
