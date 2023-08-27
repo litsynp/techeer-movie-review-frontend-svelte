@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { API_BASE_URL } from '$lib/config';
 	import { GENRES_MAP, mapGenre } from '$lib/movie';
+	import { toDateString } from '$lib/common/date-utils';
 
 	const onSubmit = async (event: Event) => {
 		const form = event.target as HTMLFormElement;
@@ -54,20 +55,14 @@
 			type="date"
 			name="releasedAt"
 			id="releasedAt"
-			value={new Date().toISOString().slice(0, 10)}
+			value={toDateString(new Date())}
 			required
 		/>
 	</span>
 
 	<span>
 		<label for="endAt">End At:</label>
-		<input
-			type="date"
-			name="endAt"
-			id="endAt"
-			value={new Date().toISOString().slice(0, 10)}
-			required
-		/>
+		<input type="date" name="endAt" id="endAt" value={toDateString(new Date())} required />
 	</span>
 
 	<button type="submit" class="create-movie-form-submit">Submit</button>

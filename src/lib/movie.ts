@@ -36,13 +36,13 @@ export function mapGenre(genre: string): string {
 	return 'Unknown';
 }
 
-export interface Movie {
+export interface MovieView {
 	id: number;
 	title: string;
 	genre: Genre;
 	isShowing: boolean;
-	releasedAt: Date;
-	endAt: Date;
-	createdAt: Date;
-	updatedAt: Date;
+	releasedAt: string;
+	endAt: string;
+	createdAt: string;
+	updatedAt: string;
 }

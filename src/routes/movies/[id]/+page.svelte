@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { API_BASE_URL } from '$lib/config';
-	import { GENRES_MAP, mapGenre, type Movie } from '$lib/movie';
+	import { GENRES_MAP, mapGenre, type MovieView } from '$lib/movie';
 	import type { Review } from '$lib/review';
 	import { onMount } from 'svelte';
+	import CreateReviewForm from '../../../components/create-review-form.svelte';
+	import { toDateString, toReadableDate } from '$lib/common/date-utils';
 
 	export let data: { id: number };
 
 	let createReviewButtonPressed = false;
 
-	function fetchMovie(id: number): Promise<Movie> {
+	function fetchMovie(id: number): Promise<MovieView> {
 		return fetch(`${API_BASE_URL}/movies/${id}`).then((res) => res.json());
 	}
 
@@ -24,7 +26,7 @@
 		}
 	}
 
-	let movie: Movie | null = null;
+	let movie: MovieView | null = null;
 	let reviews: Review[] = [];
 
 	onMount(async () => {
@@ -124,19 +126,14 @@
 			<input
 				type="date"
 				name="releasedAt"
-				value={new Date(movie.releasedAt).toISOString().slice(0, 10)}
+				value={toDateString(new Date(movie.releasedAt))}
 				required
 			/>
 		</span>
 
 		<span>
 			<label for="endAt">End At:</label>
-			<input
-				type="date"
-				name="endAt"
-				value={new Date(movie.endAt).toISOString().slice(0, 10)}
-				required
-			/>
+			<input type="date" name="endAt" value={toDateString(new Date(movie.endAt))} required />
 		</span>
 
 		<span>
@@ -163,21 +160,7 @@
 		</button>
 
 		{#if createReviewButtonPressed}
-			<form class="create-review-form" on:submit|preventDefault={onSubmitCreateReview}>
-				<input type="hidden" name="movieID" value={movie.id} />
-
-				<span>
-					<label for="comment">Comment:</label>
-					<input type="text" name="comment" placeholder="Comment" required />
-				</span>
-
-				<span>
-					<label for="score">Score:</label>
-					<input type="number" name="score" placeholder="Score" required />
-				</span>
-
-				<button type="submit" class="create-review-form-submit">Submit</button>
-			</form>
+			<CreateReviewForm {movie} {onSubmitCreateReview} />
 		{/if}
 	</div>
 
@@ -190,7 +173,7 @@
 				<div class="review">
 					<h4>{review.comment}</h4>
 					<p>Rating: {reviewScoreToStars(review.score)}</p>
-					<p>Created At: {new Date(review.createdAt).toLocaleString()}</p>
+					<p>Created At: {toReadableDate(review.createdAt)}</p>
 				</div>
 			{/each}
 		{/if}

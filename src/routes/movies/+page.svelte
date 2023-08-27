@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { API_BASE_URL } from '$lib/config';
-	import type { Movie } from '$lib/movie';
+	import type { MovieView } from '$lib/movie';
 	import { onMount } from 'svelte';
 
-	async function fetchMovies(): Promise<Movie[]> {
+	async function fetchMovies(): Promise<MovieView[]> {
 		const movies = (await fetch(`${API_BASE_URL}/movies`).then((res) => res.json())) as
-			| Movie[]
+			| MovieView[]
 			| null;
 
 		if (movies) {
@@ -15,7 +15,7 @@
 		}
 	}
 
-	let movies: Movie[] = [];
+	let movies: MovieView[] = [];
 
 	onMount(async () => {
 		movies = await fetchMovies();
