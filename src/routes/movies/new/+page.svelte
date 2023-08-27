@@ -1,8 +1,7 @@
 <script lang="ts">
-	import { API_BASE_URL } from '$lib/config';
-	import { GENRES_MAP, mapGenre, type Genre } from '$lib/movie';
-	import { toDateString } from '$lib/common/date-utils';
 	import { movieClient } from '$lib/api/movie.client';
+	import { toDateString } from '$lib/common/date-utils';
+	import { GENRES_MAP, mapGenre, type Genre } from '$lib/movie';
 
 	const onSubmit = async ({ target }: Event) => {
 		const formData = new FormData(target as HTMLFormElement);

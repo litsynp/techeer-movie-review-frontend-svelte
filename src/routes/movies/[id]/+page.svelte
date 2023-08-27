@@ -1,11 +1,10 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { movieClient } from '$lib/api/movie.client';
 	import { reviewClient } from '$lib/api/review.client';
-	import { toDateString } from '$lib/common/date-utils';
-	import { GENRES_MAP, mapGenre, type Genre, type Movie } from '$lib/movie';
+	import type { Movie } from '$lib/movie';
 	import type { Review } from '$lib/review';
 	import { onMount } from 'svelte';
+	import MovieItem from '../../../components/movie/movie-item.svelte';
 	import CreateReviewForm from '../../../components/review/create-review-form.svelte';
 	import ReviewList from '../../../components/review/review-list.svelte';
 
@@ -20,37 +19,6 @@
 		movie = await movieClient.findMovieById(data.id);
 		reviews = await reviewClient.findReviews({ movieId: data.id });
 	});
-
-	const onSubmitUpdateMovie = async ({ target }: Event) => {
-		const formData = new FormData(target as HTMLFormElement);
-
-		try {
-			await movieClient.updateMovieById(data.id, {
-				genre: formData.get('genres') as Genre,
-				title: formData.get('title') as string,
-				releasedAt: new Date(formData.get('releasedAt') as string),
-				endAt: new Date(formData.get('endAt') as string)
-			});
-			alert('Movie updated!');
-		} catch (error) {
-			console.log(error);
-			alert('Failed to update movie!');
-		}
-	};
-
-	const onDeleteMovie = async () => {
-		if (!confirm('Are you sure you want to delete this movie?')) {
-			return;
-		}
-
-		try {
-			await movieClient.deleteMovieById(data.id);
-			alert('Movie deleted!');
-			goto('/movies');
-		} catch (error) {
-			alert('Failed to delete movie!');
-		}
-	};
 
 	const onSubmitCreateReview = async (event: Event) => {
 		const form = event.target as HTMLFormElement;
@@ -72,42 +40,7 @@
 <h2>Movie: {movie?.title}</h2>
 <a href="/movies">Back</a>
 {#if movie}
-	<form class="create-movie-form" on:submit|preventDefault={onSubmitUpdateMovie}>
-		<span>
-			<label for="genre">Genre:</label>
-			<select name="genres" id="genres">
-				{#each Object.keys(GENRES_MAP) as genre}
-					<option value={genre} selected={movie.genre === genre}>{mapGenre(genre)}</option>
-				{/each}
-			</select>
-		</span>
-
-		<span>
-			<label for="title">Title:</label>
-			<input type="text" name="title" placeholder="Movie Title" value={movie.title} required />
-		</span>
-
-		<span>
-			<label for="releasedAt">Released At:</label>
-			<input
-				type="date"
-				name="releasedAt"
-				value={toDateString(new Date(movie.releasedAt))}
-				required
-			/>
-		</span>
-
-		<span>
-			<label for="endAt">End At:</label>
-			<input type="date" name="endAt" value={toDateString(new Date(movie.endAt))} required />
-		</span>
-
-		<span>
-			<button type="submit" class="create-movie-form-submit">Update</button>
-		</span>
-	</form>
-
-	<button class="create-movie-delete-button" on:click={onDeleteMovie}>Delete</button>
+	<MovieItem {movie} />
 
 	<h3>Reviews</h3>
 

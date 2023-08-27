@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { Review } from '$lib/review';
-	import { toReadableDate } from '$lib/common/date-utils';
 	import ReviewItem from './review-item.svelte';
 
 	export let reviews: Review[] = [];
