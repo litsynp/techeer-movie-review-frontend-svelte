@@ -16,13 +16,13 @@
 		justify-content: space-between;
 		align-items: center;
 		background-color: #141414;
-		padding: 1rem 2rem;
+		padding: 2rem 2.4rem;
 	}
 
 	.title {
 		font-weight: bold;
 		color: rgb(255, 255, 0);
-		font-size: 1.5rem;
+		font-size: 2rem;
 	}
 
 	.links {
@@ -36,7 +36,7 @@
 	.links a {
 		color: rgb(255, 255, 0);
 		text-decoration: none;
-		font-size: 1rem;
+		font-size: 1.5rem;
 	}
 
 	.links a:hover {

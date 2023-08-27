@@ -1,5 +1,7 @@
 # 테커 Good Night Hackathon 2nd - 영화 리뷰 앱
 
+![Movie Home](https://github.com/litsynp/techeer-movie-review-frontend-svelte/assets/42485462/2fdc96af-96cc-4a75-bcc6-6b76679ad35c)
+
 디자인은 전혀 신경쓰지 않고, 기능만 구현하는 것을 목표로 합니다.
 
 ## Supported Features

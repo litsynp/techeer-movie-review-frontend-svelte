@@ -5,19 +5,44 @@
 	export let review: Review;
 
 	function reviewScoreToStars(score: number): string {
-		return '⭐'.repeat(score);
+		let stars = '';
+
+		for (let i = 0; i < score; i++) {
+			stars += '★';
+		}
+
+		for (let i = 0; i < 5 - score; i++) {
+			stars += '☆';
+		}
+
+		return stars;
 	}
 </script>
 
-<div class="review">
-	<h4>{review.comment}</h4>
-	<p>Rating: {reviewScoreToStars(review.score)}</p>
-	<p>Created At: {toReadableDate(review.createdAt)}</p>
+<div class="container">
+	<div class="metadata-container">
+		<span>{reviewScoreToStars(review.score)}</span>
+		<span>{toReadableDate(review.createdAt)}</span>
+	</div>
+	<div>{review.comment}</div>
 </div>
 
 <style>
-	.review {
+	.container {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
 		border: 1px solid black;
 		padding: 1rem;
+		background-color: #fff;
+	}
+
+	span, div {
+		font-size: 1.4rem;
+	}
+
+	.metadata-container {
+		display: flex;
+		justify-content: space-between;
 	}
 </style>

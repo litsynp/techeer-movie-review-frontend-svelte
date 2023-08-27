@@ -6,7 +6,8 @@
 	import type { Review } from '$lib/reviews/reviews.model';
 	import { toReview } from '$lib/reviews/reviews.view';
 	import { onMount } from 'svelte';
-	import MovieItem from '../../../components/movies/movie-item.svelte';
+	import Button from '../../../components/common/button.svelte';
+	import MovieDetail from '../../../components/movies/movie-detail.svelte';
 	import CreateReviewForm from '../../../components/reviews/create-review-form.svelte';
 	import ReviewList from '../../../components/reviews/review-list.svelte';
 
@@ -33,40 +34,59 @@
 				score: Number(formData.get('score'))
 			});
 			alert('Review created!');
+			reviews = (await reviewClient.findReviews({ movieId: data.id })).map(toReview);
 		} catch (error) {
 			alert('Failed to create review!');
 		}
 	};
 </script>
 
-<h2>Movie: {movie?.title}</h2>
+<div class="page-header">Movie: {movie?.title}</div>
 
 {#if movie}
-	<MovieItem {movie} />
+	<MovieDetail {movie} />
 
-	<h3>Reviews</h3>
+	<div class="reviews-header">
+		<span class="reviews-header-title">Reviews ({reviews.length})</span>
 
-	<div class="create-review-container">
-		<button
+		<Button
+			text={createReviewButtonPressed ? 'Close' : 'Create Review'}
 			class="create-review-button"
-			on:click={() => (createReviewButtonPressed = !createReviewButtonPressed)}
-		>
-			{#if createReviewButtonPressed}
-				Close
-			{:else}
-				Create Review
-			{/if}
-		</button>
-
-		{#if createReviewButtonPressed}
-			<CreateReviewForm {movie} {onSubmitCreateReview} />
-		{/if}
+			onClick={() => {
+				createReviewButtonPressed = !createReviewButtonPressed;
+			}}
+		/>
 	</div>
+
+	{#if createReviewButtonPressed}
+		<div class="create-review-container">
+			<CreateReviewForm {movie} {onSubmitCreateReview} />
+		</div>
+	{/if}
 
 	<ReviewList {reviews} />
 {/if}
 
 <style>
+	.page-header {
+		font-size: 2rem;
+		font-weight: bold;
+		margin-bottom: 1.6rem;
+	}
+
+	.reviews-header {
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.reviews-header-title {
+		font-size: 1.6rem;
+		font-weight: bold;
+	}
+
 	.create-review-container {
 		display: flex;
 		flex-direction: column;
@@ -74,9 +94,6 @@
 		margin-bottom: 1rem;
 		border: 1px solid black;
 		padding: 1rem;
-	}
-
-	button.create-review-button {
-		align-self: flex-start;
+		background-color: #fff;
 	}
 </style>

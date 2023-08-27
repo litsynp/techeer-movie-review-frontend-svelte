@@ -1,8 +1,11 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { movieClient } from '$lib/movies/movies.client';
 	import type { Movie } from '$lib/movies/movies.model';
 	import { toMovie } from '$lib/movies/movies.view';
 	import { onMount } from 'svelte';
+	import MovieItem from '../../components/movies/movie-item.svelte';
+	import Button from '../../components/common/button.svelte';
 
 	let movies: Movie[] = [];
 
@@ -11,20 +14,54 @@
 	});
 </script>
 
-<h2>Movie Home</h2>
+<div class="page-header">Movie Home</div>
 
-<ul>
-	<li>
-		<a href="/movies/new">New Movie</a>
-	</li>
-</ul>
+<div class="movies-header">
+	<span class="movies-header-title">Movies</span>
+	<span>
+		<Button text="New Movie" onClick={() => goto('/movies/new')} />
+	</span>
+</div>
 
-<h3>Movies</h3>
+<div class="movies-container">
+	{#if movies.length === 0}
+		<div>No movies found</div>
+	{/if}
 
-<ul>
 	{#each movies as movie}
-		<li>
-			<a href="/movies/{movie.id}">{movie.title}</a>
-		</li>
+		<MovieItem {movie} />
 	{/each}
-</ul>
+</div>
+
+<style>
+	.page-header {
+		font-size: 2rem;
+		font-weight: bold;
+		margin-bottom: 1rem;
+	}
+
+	.movies-header {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: 1rem;
+	}
+
+	.movies-header-title {
+		font-size: 1.6rem;
+		font-weight: bold;
+	}
+
+	.movies-header > span {
+		display: flex;
+		flex-direction: row;
+		gap: 0.5rem;
+	}
+
+	.movies-container {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+</style>

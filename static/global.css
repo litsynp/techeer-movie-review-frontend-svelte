@@ -1,0 +1,6 @@
+@import url(https://cdn.rawgit.com/kattergil/NotoSerifKR-Web/76eb9ebf/stylesheet/NotoSerif-Web.css);
+
+* {
+  font-family: 'Noto Serif KR', serif;
+  font-size: 14px;
+}

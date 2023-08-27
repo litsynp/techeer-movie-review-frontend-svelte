@@ -7,7 +7,7 @@
 
 <div class="reviews-container">
 	{#if reviews.length === 0}
-		<p>No reviews yet!</p>
+		<div>No reviews yet!</div>
 	{/if}
 	{#if reviews.length > 0}
 		{#each reviews as review}
@@ -22,4 +22,8 @@
 		flex-direction: column;
 		gap: 1rem;
 	}
+  
+  div {
+    font-size: 1.4rem;
+  }
 </style>

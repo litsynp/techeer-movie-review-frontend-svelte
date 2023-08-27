@@ -22,15 +22,14 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		max-width: 1536px;
 		min-height: 100vh;
-		margin: 0 auto;
+		background: url(https://grainy-gradients.vercel.app/noise.svg);
 	}
 
 	main {
 		display: flex;
 		flex-direction: column;
 		flex-grow: 1;
-		padding: 1rem 2rem;
+		padding: 4rem 2rem;
 	}
 </style>

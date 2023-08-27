@@ -10,7 +10,7 @@
 <style>
 	footer {
 		display: flex;
-		padding: 1rem 2rem;
+		padding: 2rem 2rem;
 		width: 100%;
 		box-sizing: border-box;
 		gap: 1rem;
@@ -29,7 +29,6 @@
 		width: 100%;
 		justify-content: space-between;
 		align-items: center;
-		font-size: 0.8rem;
 	}
 
 	span.developer-text {
@@ -38,8 +37,13 @@
 		color: rgb(255, 255, 0);
 	}
 
-	span.developer-text a.developer-link {
+	span.developer-text > * {
+		font-size: 1.2rem;
+	}
+
+	span.developer-text > a.developer-link {
 		text-decoration: none;
 		color: rgb(255, 255, 0);
+		font-style: italic;
 	}
 </style>
