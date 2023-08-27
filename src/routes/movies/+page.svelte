@@ -12,6 +12,7 @@
 </script>
 
 <h2>Movie Home</h2>
+
 <ul>
 	<li>
 		<a href="/movies/new">New Movie</a>

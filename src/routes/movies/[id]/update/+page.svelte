@@ -14,8 +14,8 @@
 	});
 </script>
 
-<h2>Movie: {movie?.title}</h2>
-<a href="/movies">Back</a>
+<h2>Update Movie: {movie?.title}</h2>
+
 {#if movie}
 	<UpdateMovieForm {movie} />
 {/if}

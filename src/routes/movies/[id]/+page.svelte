@@ -40,7 +40,7 @@
 </script>
 
 <h2>Movie: {movie?.title}</h2>
-<a href="/movies">Back</a>
+
 {#if movie}
 	<MovieItem {movie} />
 
@@ -64,34 +64,19 @@
 	</div>
 
 	<ReviewList {reviews} />
-
-	<style>
-		form.create-movie-form {
-			display: flex;
-			flex-direction: column;
-			gap: 1rem;
-		}
-
-		button.create-movie-form-submit {
-			align-self: flex-start;
-		}
-
-		button.create-movie-delete-button {
-			align-self: flex-start;
-			margin-top: 1rem;
-		}
-
-		.create-review-container {
-			display: flex;
-			flex-direction: column;
-			gap: 1rem;
-			margin-bottom: 1rem;
-			border: 1px solid black;
-			padding: 1rem;
-		}
-
-		button.create-review-button {
-			align-self: flex-start;
-		}
-	</style>
 {/if}
+
+<style>
+	.create-review-container {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+		margin-bottom: 1rem;
+		border: 1px solid black;
+		padding: 1rem;
+	}
+
+	button.create-review-button {
+		align-self: flex-start;
+	}
+</style>

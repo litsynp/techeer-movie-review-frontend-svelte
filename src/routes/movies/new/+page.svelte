@@ -21,7 +21,6 @@
 </script>
 
 <h2>New Movie</h2>
-<a href="/movies">Back</a>
 
 <form class="create-movie-form" on:submit|preventDefault={onSubmit}>
 	<span>
