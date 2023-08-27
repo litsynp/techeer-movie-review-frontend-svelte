@@ -1,73 +1,52 @@
 <script lang="ts">
-	import { API_BASE_URL } from '$lib/config';
-	import { GENRES_MAP, mapGenre, type MovieView } from '$lib/movie';
+	import { goto } from '$app/navigation';
+	import { movieClient } from '$lib/api/movie.client';
+	import { reviewClient } from '$lib/api/review.client';
+	import { toDateString, toReadableDate } from '$lib/common/date-utils';
+	import { GENRES_MAP, mapGenre, type Genre, type Movie } from '$lib/movie';
 	import type { Review } from '$lib/review';
 	import { onMount } from 'svelte';
 	import CreateReviewForm from '../../../components/create-review-form.svelte';
-	import { toDateString, toReadableDate } from '$lib/common/date-utils';
 
 	export let data: { id: number };
 
 	let createReviewButtonPressed = false;
 
-	function fetchMovie(id: number): Promise<MovieView> {
-		return fetch(`${API_BASE_URL}/movies/${id}`).then((res) => res.json());
-	}
-
-	async function fetchReviews(id: number): Promise<Review[]> {
-		const reviews = (await fetch(`${API_BASE_URL}/reviews?movieId=${data.id}`).then((res) =>
-			res.json()
-		)) as Review[] | null;
-
-		if (reviews) {
-			return reviews;
-		} else {
-			return [];
-		}
-	}
-
-	let movie: MovieView | null = null;
+	let movie: Movie | null = null;
 	let reviews: Review[] = [];
 
 	onMount(async () => {
-		movie = await fetchMovie(data.id);
-		reviews = await fetchReviews(data.id);
+		movie = await movieClient.findMovieById(data.id);
+		reviews = await reviewClient.findReviews({ movieId: data.id });
 	});
 
-	const onSubmitUpdateMovie = async (event: Event) => {
-		const form = event.target as HTMLFormElement;
-		const formData = new FormData(form);
+	const onSubmitUpdateMovie = async ({ target }: Event) => {
+		const formData = new FormData(target as HTMLFormElement);
 
-		const payload = {
-			genre: formData.get('genres'),
-			title: formData.get('title'),
-			releasedAt: new Date(formData.get('releasedAt') as string).toISOString(),
-			endAt: new Date(formData.get('endAt') as string).toISOString()
-		};
-
-		const response = await fetch(`${API_BASE_URL}/movies/${data.id}`, {
-			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(payload)
-		});
-
-		if (response.ok) {
+		try {
+			await movieClient.updateMovieById(data.id, {
+				genre: formData.get('genres') as Genre,
+				title: formData.get('title') as string,
+				releasedAt: new Date(formData.get('releasedAt') as string),
+				endAt: new Date(formData.get('endAt') as string)
+			});
 			alert('Movie updated!');
-		} else {
+		} catch (error) {
+			console.log(error);
 			alert('Failed to update movie!');
 		}
 	};
 
 	const onDeleteMovie = async () => {
-		const response = await fetch(`${API_BASE_URL}/movies/${data.id}`, {
-			method: 'DELETE'
-		});
+		if (!confirm('Are you sure you want to delete this movie?')) {
+			return;
+		}
 
-		if (response.ok) {
+		try {
+			await movieClient.deleteMovieById(data.id);
 			alert('Movie deleted!');
-		} else {
+			goto('/movies');
+		} catch (error) {
 			alert('Failed to delete movie!');
 		}
 	};
@@ -76,24 +55,14 @@
 		const form = event.target as HTMLFormElement;
 		const formData = new FormData(form);
 
-		const payload = {
-			movieID: Number(formData.get('movieID')),
-			comment: formData.get('comment'),
-			score: Number(formData.get('score'))
-		};
-
-		const response = await fetch(`${API_BASE_URL}/reviews`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(payload)
-		});
-
-		if (response.ok) {
-			form.reset();
+		try {
+			await reviewClient.createReview({
+				movieId: Number(formData.get('movieID')),
+				comment: formData.get('comment') as string,
+				score: Number(formData.get('score'))
+			});
 			alert('Review created!');
-		} else {
+		} catch (error) {
 			alert('Failed to create review!');
 		}
 	};
@@ -137,9 +106,7 @@
 		</span>
 
 		<span>
-			<button type="submit" class="create-movie-form-submit" on:click={onSubmitUpdateMovie}>
-				Update
-			</button>
+			<button type="submit" class="create-movie-form-submit">Update</button>
 		</span>
 	</form>
 
@@ -192,6 +159,7 @@
 
 		button.create-movie-delete-button {
 			align-self: flex-start;
+			margin-top: 1rem;
 		}
 
 		.create-review-container {

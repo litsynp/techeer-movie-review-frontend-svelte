@@ -1,31 +1,21 @@
 <script lang="ts">
 	import { API_BASE_URL } from '$lib/config';
-	import { GENRES_MAP, mapGenre } from '$lib/movie';
+	import { GENRES_MAP, mapGenre, type Genre } from '$lib/movie';
 	import { toDateString } from '$lib/common/date-utils';
+	import { movieClient } from '$lib/api/movie.client';
 
-	const onSubmit = async (event: Event) => {
-		const form = event.target as HTMLFormElement;
-		const formData = new FormData(form);
+	const onSubmit = async ({ target }: Event) => {
+		const formData = new FormData(target as HTMLFormElement);
 
-		const data = {
-			genre: formData.get('genres'),
-			title: formData.get('title'),
-			releasedAt: new Date(formData.get('releasedAt') as string).toISOString(),
-			endAt: new Date(formData.get('endAt') as string).toISOString()
-		};
-
-		const response = await fetch(`${API_BASE_URL}/movies`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(data)
-		});
-
-		if (response.ok) {
-			form.reset();
+		try {
+			await movieClient.createMovie({
+				genre: formData.get('genres') as Genre,
+				title: formData.get('title') as string,
+				releasedAt: new Date(formData.get('releasedAt') as string),
+				endAt: new Date(formData.get('endAt') as string)
+			});
 			alert('Movie created!');
-		} else {
+		} catch (error) {
 			alert('Failed to create movie!');
 		}
 	};

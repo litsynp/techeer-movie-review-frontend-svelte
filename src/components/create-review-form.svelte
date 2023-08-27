@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { MovieView } from '$lib/movie';
+	import type { Movie } from '$lib/movie';
 
-	export let movie: MovieView;
+	export let movie: Movie;
 	export let onSubmitCreateReview: (event: Event) => void;
 </script>
 
