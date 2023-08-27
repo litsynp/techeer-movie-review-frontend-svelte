@@ -3,8 +3,16 @@
 	import type { Movie } from '$lib/movie';
 	import { onMount } from 'svelte';
 
-	function fetchMovies(): Promise<Movie[]> {
-		return fetch(`${API_BASE_URL}/movies`).then((res) => res.json());
+	async function fetchMovies(): Promise<Movie[]> {
+		const movies = (await fetch(`${API_BASE_URL}/movies`).then((res) => res.json())) as
+			| Movie[]
+			| null;
+
+		if (movies) {
+			return movies;
+		} else {
+			return [];
+		}
 	}
 
 	let movies: Movie[] = [];
