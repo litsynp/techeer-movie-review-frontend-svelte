@@ -1,9 +1,10 @@
 <script lang="ts">
+	import { API_BASE_URL } from '$lib/config';
 	import type { Movie } from '$lib/movie';
 	import { onMount } from 'svelte';
 
 	function fetchMovies(): Promise<Movie[]> {
-		return fetch('http://localhost:8080/api/v1/movies').then((res) => res.json());
+		return fetch(`${API_BASE_URL}/movies`).then((res) => res.json());
 	}
 
 	let movies: Movie[] = [];

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { API_BASE_URL } from '$lib/config';
 	import { GENRES_MAP, mapGenre, type Movie } from '$lib/movie';
 	import type { Review } from '$lib/review';
 	import { onMount } from 'svelte';
@@ -8,12 +9,12 @@
 	let createReviewButtonPressed = false;
 
 	function fetchMovie(id: number): Promise<Movie> {
-		return fetch(`http://localhost:8080/api/v1/movies/${id}`).then((res) => res.json());
+		return fetch(`${API_BASE_URL}/movies/${id}`).then((res) => res.json());
 	}
 
 	async function fetchReviews(id: number): Promise<Review[]> {
-		const reviews = (await fetch(`http://localhost:8080/api/v1/reviews?movieId=${data.id}`).then(
-			(res) => res.json()
+		const reviews = (await fetch(`${API_BASE_URL}/reviews?movieId=${data.id}`).then((res) =>
+			res.json()
 		)) as Review[] | null;
 
 		if (reviews) {
@@ -42,7 +43,7 @@
 			endAt: new Date(formData.get('endAt') as string).toISOString()
 		};
 
-		const response = await fetch(`http://localhost:8080/api/v1/movies/${data.id}`, {
+		const response = await fetch(`${API_BASE_URL}/movies/${data.id}`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'
@@ -59,7 +60,7 @@
 	};
 
 	const onDeleteMovie = async () => {
-		const response = await fetch(`http://localhost:8080/api/v1/movies/${data.id}`, {
+		const response = await fetch(`${API_BASE_URL}/movies/${data.id}`, {
 			method: 'DELETE'
 		});
 
@@ -80,7 +81,7 @@
 			score: Number(formData.get('score'))
 		};
 
-		const response = await fetch(`http://localhost:8080/api/v1/reviews`, {
+		const response = await fetch(`${API_BASE_URL}/reviews`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'

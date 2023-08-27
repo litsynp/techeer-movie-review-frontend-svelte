@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { API_BASE_URL } from '$lib/config';
 	import { GENRES_MAP, mapGenre } from '$lib/movie';
 
 	const onSubmit = async (event: Event) => {
@@ -12,7 +13,7 @@
 			endAt: new Date(formData.get('endAt') as string).toISOString()
 		};
 
-		const response = await fetch('http://localhost:8080/api/v1/movies', {
+		const response = await fetch(`${API_BASE_URL}/movies`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
