@@ -52,7 +52,6 @@
 		});
 
 		if (response.ok) {
-			form.reset();
 			alert('Movie updated!');
 		} else {
 			alert('Failed to update movie!');
