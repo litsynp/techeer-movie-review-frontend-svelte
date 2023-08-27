@@ -2,11 +2,12 @@
 	import { goto } from '$app/navigation';
 	import { movieClient } from '$lib/api/movie.client';
 	import { reviewClient } from '$lib/api/review.client';
-	import { toDateString, toReadableDate } from '$lib/common/date-utils';
+	import { toDateString } from '$lib/common/date-utils';
 	import { GENRES_MAP, mapGenre, type Genre, type Movie } from '$lib/movie';
 	import type { Review } from '$lib/review';
 	import { onMount } from 'svelte';
-	import CreateReviewForm from '../../../components/create-review-form.svelte';
+	import CreateReviewForm from '../../../components/review/create-review-form.svelte';
+	import ReviewList from '../../../components/review/review-list.svelte';
 
 	export let data: { id: number };
 
@@ -66,10 +67,6 @@
 			alert('Failed to create review!');
 		}
 	};
-
-	function reviewScoreToStars(score: number): string {
-		return '⭐'.repeat(score);
-	}
 </script>
 
 <h2>Movie: {movie?.title}</h2>
@@ -131,20 +128,7 @@
 		{/if}
 	</div>
 
-	<div class="reviews-container">
-		{#if reviews.length === 0}
-			<p>No reviews yet!</p>
-		{/if}
-		{#if reviews.length > 0}
-			{#each reviews as review}
-				<div class="review">
-					<h4>{review.comment}</h4>
-					<p>Rating: {reviewScoreToStars(review.score)}</p>
-					<p>Created At: {toReadableDate(review.createdAt)}</p>
-				</div>
-			{/each}
-		{/if}
-	</div>
+	<ReviewList {reviews} />
 
 	<style>
 		form.create-movie-form {
@@ -173,17 +157,6 @@
 
 		button.create-review-button {
 			align-self: flex-start;
-		}
-
-		.reviews-container {
-			display: flex;
-			flex-direction: column;
-			gap: 1rem;
-		}
-
-		.review {
-			border: 1px solid black;
-			padding: 1rem;
 		}
 	</style>
 {/if}
